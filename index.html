@@ -13,21 +13,36 @@
     <script src="jszip.min.js"></script>
     <script type="module" src="script.js"></script>
   </head>
-  <body>
+  <body id="dropTarget">
     <main>
       <input type="file" id="filepicker" name="fileList" webkitdirectory />
       <ul id="listing"></ul>
     </main>
     <script src="drag-drop.js"></script>
     <script>
-      window.dragDrop('body', (files, pos, fileList, directories) => {
-        console.log('Here are the dropped files', files); // Array of File objects
-        console.log('Dropped at coordinates', pos.x, pos.y);
-        console.log(
-          'Here is the raw FileList object if you need it:',
-          fileList
-        );
-        console.log('Here is the list of directories:', directories);
+      dragDrop('#dropTarget', {
+        onDrop: (files, pos, fileList, directories) => {
+          console.log('Here are the dropped files', files);
+          console.log('Dropped at coordinates', pos.x, pos.y);
+          console.log(
+            'Here is the raw FileList object if you need it:',
+            fileList
+          );
+          console.log('Here is the list of directories:', directories);
+        },
+        onDropText: (text, pos) => {
+          console.log('Here is the dropped text:', text);
+          console.log('Dropped at coordinates', pos.x, pos.y);
+        },
+        onDragEnter: (event) => {
+          event.target.style['background-color'] = 'rgba(0,0,0,0.3)';
+        },
+        // onDragOver: (event) => {
+        //   event.target.style['background-color'] = 'rgba(0,0,0,0.3)'
+        // },
+        onDragLeave: (event) => {
+          event.target.style['background-color'] = 'white';
+        },
       });
     </script>
   </body>
