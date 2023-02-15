@@ -4,6 +4,7 @@ document.getElementById('filepicker').addEventListener(
   'change',
   async (event) => {
     let output = document.getElementById('listing');
+    console.log(event.target.webkitEntries);
     for (const file of event.target.files) {
       let item = document.createElement('li');
       item.textContent = removeZipRootFolder(file.webkitRelativePath);
@@ -18,7 +19,6 @@ document.getElementById('filepicker').addEventListener(
             )
         )
         .map((file) => {
-          console.log(file.webkitRelativePath);
           return addFileToZip(
             file,
             removeZipRootFolder(file.webkitRelativePath)
